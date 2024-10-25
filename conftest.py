@@ -33,10 +33,7 @@ def create_and_delete_user():
     }
 
     # Создаем пользователя через API
-    response = requests.post(
-        'https://stellarburgers.nomoreparties.site/api/auth/register',
-        json=user_data
-    )
+    response = requests.post(DataUrl.USER_REGISTER_PAGE, json=user_data)
 
     assert response.status_code == 200, "User registration failed"
     access_token = response.json()['accessToken']
@@ -45,9 +42,4 @@ def create_and_delete_user():
     yield user_data
     with allure.step("Удаление пользователя"):
         headers = {"Authorization": f"Bearer {access_token}"}
-        delete_response = requests.delete(
-            'https://stellarburgers.nomoreparties.site/api/auth/user',
-            headers=headers
-        )
-
-
+        requests.delete(DataUrl.USER_DELETE, headers=headers)

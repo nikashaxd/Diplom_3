@@ -17,10 +17,9 @@ class TestCabinet:
         cabinet_page.set_value(CabinetPageLocators.EMAIL_INPUT_FIELD, DataUser.EMAIL)
         cabinet_page.set_value(CabinetPageLocators.PASSWORD_INPUT_FIELD, DataUser.PASSWORD)
         cabinet_page.click_element(CabinetPageLocators.LOGIN_BUTTON)
-
         cabinet_page.click_element(CabinetPageLocators.CABINET_HEADER)
-
-        WebDriverWait(driver, 10).until(EC.url_to_be('https://stellarburgers.nomoreparties.site/account/profile'))
+        with allure.step("Ожидание перехода на страницу личного кабинета"):
+            WebDriverWait(driver, 10).until(EC.url_to_be(DataUrl.PROFILE_PAGE))
 
         assert driver.current_url == DataUrl.PROFILE_PAGE
 

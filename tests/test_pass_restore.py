@@ -30,7 +30,8 @@ class TestPassRestore:
 
         restore_page.click_element(RestorePageLocators.RESTORE_BUTTON)
 
-        WebDriverWait(driver, 10).until(EC.url_contains('reset-password'))
+        with allure.step("Ожидание перехода на страницу 'reset-password'"):
+            WebDriverWait(driver, 10).until(EC.url_contains('reset-password'))
 
         assert driver.current_url == DataUrl.RESTORE_INPUT_PASSWORD_PAGE
 
@@ -48,10 +49,13 @@ class TestPassRestore:
 
         restore_page.click_element(RestorePageLocators.RESTORE_BUTTON)
 
-        WebDriverWait(driver, 10).until(EC.url_contains('reset-password'))
+        with allure.step("Ожидание перехода на страницу восстановления пароля"):
+            WebDriverWait(driver, 10).until(EC.url_contains('reset-password'))
 
-        WebDriverWait(driver, 10).until(
-            EC.invisibility_of_element_located((By.CLASS_NAME, "Modal_modal_overlay__x2ZCr")))
+        with allure.step("Ожидание исчезновения модального окна"):
+            WebDriverWait(driver, 10).until(
+                EC.invisibility_of_element_located((By.CLASS_NAME, "Modal_modal_overlay__x2ZCr"))
+            )
 
         restore_page.set_value(RestorePageLocators.RESTORE_INPUT_EMAIL, DataUser.PASSWORD)
 
